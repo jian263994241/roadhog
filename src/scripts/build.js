@@ -1,7 +1,8 @@
 import chalk from 'chalk';
-import yargs from 'yargs';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers'
 
-const argv = yargs.option('watch', {
+const argv = yargs(hideBin(process.argv)).option('watch', {
   alias: 'w',
   default: false,
 }).argv;

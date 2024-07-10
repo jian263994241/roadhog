@@ -91,6 +91,7 @@ export default function runDev(opts = {}) {
   dev({
     webpackConfig,
     proxy: config.proxy || {},
+    port: 8000,
     beforeServer(devServer) {
       try {
         applyMock(devServer);

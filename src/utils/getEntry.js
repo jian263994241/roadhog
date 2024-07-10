@@ -1,7 +1,7 @@
 import { join, basename, sep } from 'path';
 import { existsSync } from 'fs';
-import glob from 'glob';
-import isPlainObject from 'is-plain-object';
+import { globSync } from 'glob';
+import { isPlainObject } from 'is-plain-object';
 import { webpackHotDevClientPath } from 'af-webpack/react-dev-utils';
 
 // entry 支持 4 种格式：
@@ -75,7 +75,7 @@ function getEntry(filePath) {
 }
 
 function getFiles(entry, cwd) {
-  const files = glob.sync(entry, {
+  const files = globSync(entry, {
     cwd,
   });
   return files.map(file => {

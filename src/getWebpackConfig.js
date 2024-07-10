@@ -25,9 +25,8 @@ export default function(opts = {}) {
     babel: config.babel || {
       presets: [
         [babel, { browsers: browserslist }],
-        ...(config.extraBabelPresets || []),
       ],
-      plugins: config.extraBabelPlugins || [],
+      plugins: [],
     },
     browserslist,
   });

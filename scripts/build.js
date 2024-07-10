@@ -2,7 +2,7 @@ const vfs = require('vinyl-fs');
 const babel = require('@babel/core');
 const through = require('through2');
 const chalk = require('chalk');
-const rimraf = require('rimraf');
+const { rimrafSync } = require('rimraf');
 const { readFileSync, writeFileSync } = require('fs');
 const { join } = require('path');
 const chokidar = require('chokidar');
@@ -21,7 +21,7 @@ const nodeBabelConfig = {
   plugins: [
     require.resolve('@babel/plugin-proposal-export-default-from'),
     require.resolve('@babel/plugin-proposal-do-expressions'),
-    require.resolve('@babel/plugin-proposal-class-properties'),
+    require.resolve('@babel/plugin-transform-class-properties'),
   ],
 };
 const browserBabelConfig = {
@@ -37,7 +37,7 @@ const browserBabelConfig = {
   plugins: [
     require.resolve('@babel/plugin-proposal-export-default-from'),
     require.resolve('@babel/plugin-proposal-do-expressions'),
-    require.resolve('@babel/plugin-proposal-class-properties'),
+    require.resolve('@babel/plugin-transform-class-properties'),
   ],
 };
 
@@ -61,7 +61,7 @@ function transform(opts = {}) {
 }
 
 function build() {
-  rimraf.sync(join(cwd, 'lib'));
+  rimrafSync(join(cwd, 'lib'));
   return vfs
     .src(`./src/**/*.js`)
     .pipe(

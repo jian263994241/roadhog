@@ -2,14 +2,14 @@ import expect from 'expect';
 import chalk from 'chalk';
 import { join } from 'path';
 import { readFileSync, readdirSync } from 'fs';
-import glob from 'glob';
+import { globSync } from 'glob';
 import build from '../src/build';
 
 process.env.NO_COMPRESS = true;
 process.env.DISABLE_ESLINT = true;
 
 function assertResult(actualDir, expectDir) {
-  const actualFiles = glob.sync('**/*', { cwd: actualDir, nodir: true });
+  const actualFiles = globSync('**/*', { cwd: actualDir, nodir: true });
 
   actualFiles.forEach(file => {
     const actualFile = readFileSync(join(actualDir, file), 'utf-8');

@@ -17,9 +17,9 @@ if (major * 10 + minor * 1 < 65) {
 }
 
 // Notify update when process exits
-const updater = require('update-notifier');
+const updateNotifier = require('update-notifier');
 const pkg = require('../package.json');
-updater({ pkg: pkg }).notify({ defer: true });
+updateNotifier({ pkg: pkg }).notify();
 
 const scriptAlias = {
   server: 'dev',

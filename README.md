@@ -11,18 +11,20 @@ Roadhog is a cli tool with `dev`、`build` and `test` commands. It's based on re
 
 ## Docs
 
-* [2.0 发布日志](https://github.com/sorrycc/blog/issues/55)
-* [Migrate from 1.x](./migrate-from-1.x.md)
-* [1.x docs](https://github.com/sorrycc/roadhog/blob/1.x/README_en-us.md)
+- [2.0 发布日志](https://github.com/sorrycc/blog/issues/55)
+- [Migrate from 1.x](./migrate-from-1.x.md)
+- [1.x docs](https://github.com/sorrycc/roadhog/blob/1.x/README_en-us.md)
 
 ## Features
-* 📦 out of the box React application development tools, built-in css-modules, babel, postcss, HMR, etc.
-* 🐠 create-react-app experience
-* 🚨 webpack configuration in JSON format
-* 🔥 mock
-* ✂️ test based on jest, ui test with enzyme
+
+- 📦 out of the box React application development tools, built-in css-modules, babel, postcss, HMR, etc.
+- 🐠 create-react-app experience
+- 🚨 webpack configuration in JSON format
+- 🔥 mock
+- ✂️ test based on jest, ui test with enzyme
 
 ## Getting started
+
 ```bash
 ## Install globally or locally
 $ npm i roadhog -g
@@ -43,20 +45,23 @@ $ roadhog test
 ```
 
 ## Mock
-roadhog dev support mock, configured in  `.roadhogrc.mock.js`.
+
+roadhog dev support mock, configured in `.roadhogrc.mock.js`.
 
 e.g.
 
 ```js
 export default {
   // Support type as Object and Array
-  'GET /api/users': { users: [1,2] },
+  "GET /api/users": { users: [1, 2] },
 
   // Method like GET or POST can be omitted
-  '/api/users/1': { id: 1 },
+  "/api/users/1": { id: 1 },
 
   // Support for custom functions, the API is the same as express@4
-  'POST /api/users/create': (req, res) => { res.end('OK'); },
+  "POST /api/users/create": (req, res) => {
+    res.end("OK");
+  },
 };
 ```
 
@@ -78,43 +83,67 @@ If you prefer JS configuration, or need to do some programming or abstract judgm
 
 ```js
 export default {
-  externals: { react: 'window.React' },
-}
+  externals: { react: "window.React" },
+};
 ```
 
 Index:
 
-* [entry](#entry)
-* [theme](#theme)
-* [define](#define)
-* [externals](#externals)
-* [alias](#alias)
-* [extraResolveExtensions](#extraresolveextensions)
-* [browserslist](#browserslist)
-* [publicPath](#publicpath)
-* [outputPath](#outputpath)
-* [devtool](#devtool)
-* [commons](#commons)
-* [hash](#hash)
-* [html](#html)
-* [disableCSSModules](#disablecssmodules)
-* [disableCSSSourceMap](#disablecsssourcemap)
-* [extraBabelPresets](#extrababelpresets)
-* [extraBabelPlugins](#extrababelplugins)
-* [extraBabelIncludes](#extrababelincludes)
-* [copy](#copy)
-* [proxy](#proxy)
-* [sass](#sass)
-* [manifest](#manifest)
-* [ignoreMomentLocale](#ignoremomentlocale)
-* [disableDynamicImport](#disabledynamicimport)
-* [env](#env)
+- [entry](#entry)
+- [theme](#theme)
+- [define](#define)
+- [externals](#externals)
+- [alias](#alias)
+- [extraResolveExtensions](#extraresolveextensions)
+- [browserslist](#browserslist)
+- [publicPath](#publicpath)
+- [outputPath](#outputpath)
+- [devtool](#devtool)
+- [commons](#commons)
+- [hash](#hash)
+- ~~[html](#html)~~
+- [disableCSSModules](#disablecssmodules)
+- [disableCSSSourceMap](#disablecsssourcemap)
+- [extraBabelPresets](#extrababelpresets)
+- [extraBabelPlugins](#extrababelplugins)
+- [extraBabelIncludes](#extrababelincludes)
+- [copy](#copy)
+- [proxy](#proxy)
+- [sass](#sass)
+- [manifest](#manifest)
+- [ignoreMomentLocale](#ignoremomentlocale)
+- [disableDynamicImport](#disabledynamicimport)
+- [env](#env)
+- chainConfig 新增
+
+html fix
+
+```js
+
+{
+  chainConfig: (webpackConfig) => {
+    webpackConfig
+      .plugin('html-template')
+      .use(require('html-webpack-plugin'), [
+        {
+          title: '',
+          templateContent: `<div id="root"></div>`,
+          meta: {
+            viewport: 'width=device-width, initial-scale=1'
+          }
+        }
+      ])
+      .before('progress');
+  },
+}
+
+```
 
 ### entry
 
 Specify webpack entries, support [glob](https://github.com/isaacs/node-glob) format.
 
-suppose your project is multipages, wanting files in src/pages as entries. you can do the followings.
+suppose your project is multipages, wanting files in src/pages as entries. your can do the followings.
 
 ```
 "entry": "src/pages/*.js"
@@ -333,13 +362,13 @@ Thus, extraBabelPlugins in development is `['transform-runtime', 'dva-hmr']`, an
 
 You can temporarily configure some parameters for environment variables, including:
 
-* `PORT`, default 8000
-* `HOST`, default localhost
-* `ANALYZE`, whether to analyze the output bundle in `roadhog build`
-* `ESLINT`, set `none` disable eslint check
-* `TSLINT`, set `none` disable tslint check
-* `COMPRESS`, set `none` to disable file compressing in `roadhog build`
-* `BROWSER`, set `none` to disable browser open in `roadhog dev`
+- `PORT`, default 8000
+- `HOST`, default localhost
+- `ANALYZE`, whether to analyze the output bundle in `roadhog build`
+- `ESLINT`, set `none` disable eslint check
+- `TSLINT`, set `none` disable tslint check
+- `COMPRESS`, set `none` to disable file compressing in `roadhog build`
+- `BROWSER`, set `none` to disable browser open in `roadhog dev`
 
 e.g. start dev server with port 3000,
 

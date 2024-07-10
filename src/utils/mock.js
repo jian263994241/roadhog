@@ -2,7 +2,7 @@ import { existsSync } from 'fs';
 import assert from 'assert';
 import chokidar from 'chokidar';
 import chalk from 'chalk';
-import proxy from 'http-proxy-middleware';
+import { createProxyMiddleware } from 'http-proxy-middleware';
 import url from 'url';
 import bodyParser from 'body-parser';
 import getPaths from '../getPaths';
@@ -59,7 +59,7 @@ function createProxy(method, pathPattern, target) {
     return path.replace(req.originalUrl.replace(matchPath, ''), targetPath);
   };
 
-  return proxy(filter, { target: realTarget, pathRewrite });
+  return createProxyMiddleware(filter, { target: realTarget, pathRewrite });
 }
 
 export function applyMock(devServer) {

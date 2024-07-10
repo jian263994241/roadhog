@@ -1,4 +1,7 @@
-import { argv } from 'yargs';
+import yargs from 'yargs/yargs';
+import { hideBin } from 'yargs/helpers'
+
+const argv = yargs(hideBin(process.argv)).argv
 
 // 修复 Ctrl+C 时 dev server 没有正常退出的问题
 process.on('SIGINT', () => {

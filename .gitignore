@@ -15,4 +15,4 @@ npm-debug.log*
 
 .run
 yarn.lock
-
+pnpm-lock.yaml
